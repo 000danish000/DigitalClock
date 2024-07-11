@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalClock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .hero {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(to right, #08001f, #30197d);
+
+            color: #fff;
+            position: relative;
+        }
+
+        .container {
+            background-color: darkblue;
+            width: 800px;
+            height: 150px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        .clock {
+
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(25px);
+        }
+
+        .container::before {
+            content: '';
+            width: 150px;
+            height: 150px;
+            background-color: #FFB534;
+            position: absolute;
+            left: -50px;
+            top: -50px;
+            border-radius: 100px;
+            z-index: -1;
+        }
+
+        .container::after {
+            content: '';
+            width: 150px;
+            height: 150px;
+            background-color: #65B741;
+            position: absolute;
+            right: -50px;
+            bottom: -50px;
+            z-index: -1;
+        }
+
+        .clock span {
+            font-size: 100px;
+            padding: 20px;
+            margin: 0px;
+            font-family: fantasy;
+            display: inline-block;
+        }
+
+        .clock span::after {
+            position: relative;
+            display: flex;
+            font-size: 16px;
+            bottom: 9px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: monospace;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #hrs::after {
+            content: 'Hours';
+        }
+
+        #min::after {
+            content: 'Minutes';
+        }
+
+        #sec::after {
+            content: 'Seconds';
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <div class="container">
+            <div class="clock">
+                <span id="hrs">00</span>
+                <span>:</span>
+                <span id="min">00</span>
+                <span>:</span>
+                <span id="sec">00</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hours = document.getElementById('hrs');
+        const min = document.getElementById('min');
+        const sec = document.getElementById('sec');
+
+        function displayTime() {
+            let currentime = new Date();
+            hours.innerHTML = currentime.getHours() % 12 < 10 ? `0${currentime.getHours() % 12}` : currentime.getHours() % 12;
+            min.innerHTML = currentime.getMinutes() < 10 ? `0${currentime.getMinutes()}` : currentime.getMinutes();
+            sec.innerHTML = currentime.getSeconds() < 10 ? `0${currentime.getSeconds()}` : currentime.getSeconds();
+        }
+
+        setInterval(() => {
+            displayTime();
+        }, 1000);
+
+
+
+    </script>
+</body>
+
+</html>
